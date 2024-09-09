@@ -1,0 +1,450 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <section class="content-header">
+            <!-- <h1>User Profile </h1> -->
+            &nbsp;
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li class="active">User profile</li>
+            </ol>
+        </section>
+
+&nbsp;
+         
+        <!-- Row -->
+        <!-- <section class="content"> -->
+            <!-- <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-heading">
+                            <div class="pull-left">
+                                <h1 class="panel-title txt-dark">User Profile</h1>
+                            </div>
+                            {%if (roleData[0] == "add")or(role =="admin")%}
+                            <div class="pull-right">
+                                <a herf="#" data-toggle="modal" data-target="#responsive-modal" href="#"
+                                    data-toggle="modal" data-target="#responsive-modal" href="#"><button type="button"
+                                        class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Add Chips</button></a>
+                            </div>
+                            {%endif%}
+                            <div class="clearfix"></div>
+                        </div> -->
+                        <!-- <div class="panel panel-default card-view"> -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel panel-default card-view">
+                                        <div class="panel-heading">
+                                            <div class="pull-left">
+                                                <h6 class="panel-title txt-dark">View Profile</h6>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-wrap">
+                                                            <form class="form-horizontal" action="/profile/update"
+                                                                method="post" enctype="multipart/form-data">
+                                                                <!-- <input type="hidden" name="id" value="{{user.id}}"> -->
+                                                                <div class="form-horizontal">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">First Name*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-user"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="name" placeholder="Enter name"
+                                                                                required name="name"
+                                                                                value="{{user.firstName}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">Last Name*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-user"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="name" placeholder="Enter name"
+                                                                                required name="name"
+                                                                                value="{{user.lastName}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">Contact Number*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-earphone"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="name" placeholder="Enter name"
+                                                                                required name="name"
+                                                                                value="{{user.phoneNumber}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail_3"
+                                                                        class="col-sm-3 control-label">Email*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-envelope"></i>
+                                                                            </div>
+                                                                            <input type="email" class="form-control"
+                                                                                required name="email" id="email"
+                                                                                value="{{user.email}}"
+                                                                                data-validation="email" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">Type*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-flag"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="city" placeholder="Enter City"
+                                                                                required name="city"
+                                                                                value="{{user.role}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">Company Name*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-flag"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="city" placeholder="Enter City"
+                                                                                required name="city"
+                                                                                value="{{user.company.companyName}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_3"
+                                                                        class="col-sm-3 control-label">Business Unit*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-flag"></i>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="city" placeholder="Enter City"
+                                                                                required name="city"
+                                                                                value="{{user.businessUnit}}"
+                                                                                data-validation="length required"
+                                                                                data-validation-length=""
+                                                                                data-validation-error-msg="Username is required" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                            <!-- <input type="hidden" id="userId" value="{{user._id}}"> -->
+                                                                <!-- <div class="form-group">
+                                                                    <label for="image"
+                                                                        class="col-md-3 control-label">Profile
+                                                                        Image</label>
+                                                                    <div class="col-md-9 float-right">
+                                                                        <div class="input-group">
+                                                                            <input type="file"
+                                                                                placeholder="Upload profile"
+                                                                                class="form-control" name="profileImage"
+                                                                                id="profileImage">
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                                <!-- <div class="form-group mb-0">
+                                                                    <div class="col-sm-offset-3 col-sm-9">
+                                                                        <button type="submit"
+                                                                            class="btn btn-success ">Update</button>
+                                                                    </div>
+                                                                </div> -->
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                             
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-default card-view">
+                                        <div class="panel-heading">
+                                            <div class="pull-left">
+                                                <h6 class="panel-title txt-dark">Change Password</h6>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-xs-12">
+                                                        <div class="form-wrap">
+                                                            <form class="form-horizontal" action="/profile/changePwd"
+                                                                method="post">
+                                                                <input type="hidden" name="id" value="{{user.id}}">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_4"
+                                                                        class="col-sm-3 control-label">Current
+                                                                        Password*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-lock"></i>
+                                                                            </div>
+                                                                            <input type="password" class="form-control"
+                                                                                id="currentPassword"
+                                                                                placeholder="Enter Current password"
+                                                                                name="currentPassword"
+                                                                                data-validation="passwordValidation"
+                                                                               >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputuname_4"
+                                                                        class="col-sm-3 control-label">New
+                                                                        Password*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-lock"></i>
+                                                                            </div>
+                                                                            <input type="password" class="form-control"
+                                                                                id="password"
+                                                                                placeholder="Enter password"
+                                                                                name="pass_confirmation"
+                                                                                data-validation="length"
+                                                                                data-validation-length="min6">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail_4"
+                                                                        class="col-sm-3 control-label">Confirm
+                                                                        Password*</label>
+                                                                    <div class="col-sm-9">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon"><i
+                                                                                    class="glyphicon glyphicon-lock"></i>
+                                                                            </div>
+                                                                            <input type="password" class="form-control"
+                                                                                placeholder="Enter Confirm Password"
+                                                                                name="pass"
+                                                                                data-validation="confirmation">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group mb-0">
+                                                                    <div class="col-sm-offset-3 col-sm-9">
+                                                                        <button type="submit"
+                                                                            class="btn btn-success ">Change
+                                                                            Password</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- add div for admin chips  -->
+                                <!-- {% if role == 'admin' %}
+                            <div class="col-md-6">
+                                <div class="panel panel-default card-view">
+                                    <div class="panel-heading">
+                                        <div class="pull-left">
+                                            <h6 class="panel-title txt-dark">Request Chips</h6>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="panel-wrapper collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-xs-12">
+                                                    <div class="form-wrap">
+                                                        <a data-toggle="modal" data-target="#responsive-modal" class="btn btn-default btn-xs addChips btn-rounded" id="addChips" title="Request Cash"><i class="fa fa-dollar" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% endif %} -->
+                                <!-- Request MOney -->
+                                <section class="content">
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <!-- /.modal -->
+                                        <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog"
+                                            aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form method="POST" name="adduser" id="cashAddFrm"
+                                                        action="/admin/requestAdminChips">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-hidden="true">×</button>
+                                                            <h5 class="modal-title">Add/Deduct Chips</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div id="requestCash"> </div>
+                                                            <div class="form-group">
+                                                                <label for="recipient-name"
+                                                                    class="control-label mb-10">Chips:</label>
+                                                                <input type="text" name="chips" maxlength="7"
+                                                                    class="form-control" id="action_chips" required>
+                                                                <span class="help-block form-error" id="displayError"
+                                                                    style="display: none;">The input value was not a
+                                                                    correct number</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <!-- <input type="submit" name="requestType" class="btn btn-success playerChipsAction" value="Add">
+																					<input type="submit" class="btn btn-danger playerChipsAction" name="requestType" value="Deduct"> -->
+                                                            <input type="hidden" name="requestType" id="requestType"
+                                                                value="">
+                                                            <input type="button" onclick="checkAmount('add')"
+                                                                name="requestType"
+                                                                class="btn btn-success playerChipsAction" value="Add">
+                                                            <input type="button" onclick="checkAmount('deduct')"
+                                                                class="btn btn-danger playerChipsAction"
+                                                                name="requestType" value="Deduct">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Button trigger modal -->
+                                    </div>
+                                    <!-- /Row -->
+                                </section>
+                            </div>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+        <!-- </section> -->
+
+        <!-- /Row -->
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+        let host = window.location.origin
+        let validatePassword
+        $.formUtils.addValidator({
+            name: 'passwordValidation',
+            validatorFunction: function (value, $el, config, language, $form) {
+                $.ajax({
+                    type: 'POST',
+                    url: host + "/validateCurrentPassword",
+                    data: { password: value },
+                    async: false,
+                    success: function (resultData) {
+                        console.log("resultData",resultData);
+                        if (resultData == 'success') {
+                            validatePassword = true 
+                        } else  if (resultData == "error"){
+                            validatePassword = false
+                        }
+                    }
+                });
+                return validatePassword
+            },
+            errorMessage: 'Please enter valid password',
+            errorMessageKey: 'badSelectValue'
+        });
+        // console.log($('#image').val());
+        // var host = window.location.origin;
+        // checkAmount = function (type) {
+        //     var chips = $('#action_chips').val();
+        //     $(".playerChipsAction").attr("disabled", true);
+        //     if (parseFloat(chips) <= 0) {
+        //         $('#displayError').html('please enter positive amount.');
+        //         $('#displayError').css('color', 'red');
+        //         $('#displayError').show();
+        //         $(".playerChipsAction").attr("disabled", false);
+        //         return false;
+        //     }
+        //     if (chips < 0 || isNaN(chips) || (chips % 1 !== 0)) {
+        //         $('#displayError').html('please enter valid amount.');
+        //         $('#displayError').css('color', 'red');
+        //         $('#displayError').show();
+        //         $(".playerChipsAction").attr("disabled", false);
+        //         return false;
+        //     }
+        //     if (parseFloat(chips) > 1000000) {
+        //         $('#displayError').html('please enter chips maximum 1000000.');
+        //         $('#displayError').css('color', 'red');
+        //         $('#displayError').show();
+        //         $(".playerChipsAction").attr("disabled", false);
+        //         return false;
+        //     }
+        //     if (type == "add") {
+        //         $('#requestType').val('Add');
+        //     } else {
+        //         $('#requestType').val('Deduct');
+        //     }
+
+        //     $('#cashAddFrm').submit();
+        // }
+    });
+
+    $.validate({
+        modules: 'security',
+        onModulesLoaded: function () {
+            // Show strength of password
+            $('input[name="pass_confirmation"]').displayPasswordStrength();
+        }
+    });
+</script>
+
+{% endblock %}

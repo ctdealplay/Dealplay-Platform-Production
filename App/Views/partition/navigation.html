@@ -1,0 +1,507 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <!-- <div class="user-panel">
+            <div class="pull-left image">
+                {% if session.details.role == 'admin' or session.details.role == 'sub-admin'%}
+                <img src="{{session.details.image}}" class="img-circle" alt="User Image" width="50px" height="50px">
+                 {%elif session.details.role == 'site-owner' or session.details.role == 'grand-master' or session.details.role == 'master' or session.details.role == 'agent'%}
+                 {%if session.details.role == 'grand-master'%}
+                <img src="{{session.details.image}}" class="img-circle" alt="User Image" width="50px" height="50px">
+                {%else%}
+                <img src="{{session.details.image}}" class="img-circle" alt="User Image" width="50px" height="50px">
+                {%endif%}
+                {%else%}
+
+                <img src="/dist/img/user123.png" class="img-circle" alt="Agent Image" width="50px" height="50px"> {%endif%}
+
+            </div>
+        </div> -->
+        <!-- sidebar menu: style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <!-- {% if role != "cashier"%}
+            <li class="{{classActive}}">
+                <a href="/dashboard">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            {%endif%} -->
+
+
+            <!--<li class="treeview {{user}}">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>User Management</span>
+                    <span class="pull-right-container">
+				      <i class="fa fa-angle-left pull-right"></i>
+				    </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li class="{{userActive}}">
+                        <a href="/user"><i class="fa fa-circle-o"></i> All User
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                    <li class="{{Owner}}">
+                        <a href="/mySiteOwner"><i class="fa fa-circle-o"></i> My Users(Site Owner)
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                </ul>
+
+            </li> -->
+            {% if (role == "superAdmin") or (role == "admin") %}
+            <li class="{{userMangement}}">
+                <a href="/userManagement">
+                    <i class="fa fa-users mr-20"></i><span> User Management</span>
+                </a>
+            </li>
+            {%endif%}
+            <li class="{{learnerManagement}}">
+                <a href="/learnerManagement">
+                    <i class="fa fa-users mr-20"></i><span> Learner Management</span>
+                </a>
+            </li>
+            {% if role == "superAdmin" %}
+            <li class="{{adminMangement}}">
+                <a href="/adminManagement">
+                    <i class="fa fa-users mr-20"></i><span> Admin Management</span>
+                </a>
+            </li>
+            {%endif%}
+            {% if (role == "superAdmin") or (role == "admin") %}
+            <li class="{{modules}}">
+                <li class="treeview {{modules}}">
+                    <a href="#">
+                        <i class="fa fa-list-alt mr-20"></i> <span> Module Management</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if (role == "superAdmin") or (role == "admin") %}
+                        <li class="{{moduleManagement}}">
+                            <a href="/moduleManagement">
+                                <i class="fa fa-list-alt mr-20"></i><span> Assign Module</span>
+                            </a>
+                        </li>
+                        {%endif%}
+                        {%if role == "superAdmin"%}
+                        <li class="{{addModuleManagement}}">
+                            <a href="/moduleBuild">
+                                <i class="fa fa-list-alt mr-20"></i><span> Add Module</span>
+                            </a>
+                        </li>
+                        {%endif%}
+                    </ul>
+    
+                </li>
+                </li>
+                {%endif%}
+            <!-- <li class="{{gameMangement}}">
+                <a href="/games">
+                    <i class="fa fa-gamepad mr-20"></i><span> Games Management</span>
+                </a>
+            </li>
+            <li class="{{lineMasterActive}}">
+                <a href="/lineMaster/{{session.details.gameId}}">
+                    <i class="fa fa-line-chart mr-20"></i><span> Line Master</span>
+                </a>
+            </li> -->
+            <!-- <li class="{{setting}}">
+                <a href="/settings">
+                    <i class="fa fa-cog mr-20"></i><span> Setting</span>
+                </a>
+            </li> -->
+            <!-- <li class="{{report}}">
+                <li class="treeview {{report}}">
+                    <a href="#">
+                        <i class="fa fa-file mr-20"></i> <span>Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{adminBetReport}}">
+                            <a href="/adminBetReport">
+                                <i class="fa-regular fa-circle mr-20"></i><span> Bet Report</span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                </li>
+                </li> -->
+            
+            {% if role == "distributor"%}
+            <li class="{{userManagement}}">
+                <a href="/user">
+                    <i class="fa fa-user mr-20"></i><span>User Management</span>
+                </a>
+            </li>
+            <!-- <li class="{{gameSetting}}">
+                <a href="/user">
+                    <i class="fa fa-gamepad mr-20"></i><span> Game Setting</span>
+                </a>
+            </li> -->
+            <li class="{{report}}">
+                <li class="treeview {{report}}">
+                    <a href="#">
+                        <i class="fa fa-file mr-20"></i> <span>Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{distributorBetReport}}">
+                            <a href="/distributorBetReport">
+                                <i class="fa-regular fa-circle mr-20"></i><span> Bet Report</span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                </li>
+                </li>
+            {%endif%}
+            {% if role == "subDistributor"%}
+            <li class="{{shopMangement}}">
+                <a href="/shop">
+                    <i class="fa fa-store mr-20"></i><span>Shop Management</span>
+                </a>
+            </li>
+            <!-- <li class="{{gameSetting}}">
+                <a href="/user">
+                    <i class="fa fa-gamepad mr-20"></i><span> Game Setting</span>
+                </a>
+            </li> -->
+            <li class="{{report}}">
+                <li class="treeview {{report}}">
+                    <a href="#">
+                        <i class="fa fa-file mr-20"></i> <span>Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{subDistributorBetReport}}">
+                            <a href="/subDistributorBetReport">
+                                <i class="fa-regular fa-circle mr-20"></i><span> Bet Report</span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                </li>
+                </li>
+            {%endif%}
+            {% if role == "shop"%}
+            <li class="{{cashierMangement}}">
+                <a href="/cashier">
+                    <i class="fa fa-user-circle-o mr-20"></i><span>Cashier Management</span>
+                </a>
+            </li>
+            <!-- <li class="{{gameSetting}}">
+                <a href="/user">
+                    <i class="fa fa-gamepad mr-20"></i><span> Game Setting</span>
+                </a>
+            </li> -->
+            <li class="{{report}}">
+                <li class="treeview {{report}}">
+                    <a href="#">
+                        <i class="fa fa-file mr-20"></i> <span>Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{shopBetReport}}">
+                            <a href="/shopBetReport">
+                                <i class="fa-regular fa-circle mr-20"></i><span> Bet Report</span>
+                            </a>
+                        </li>
+                    </ul>
+    
+                </li>
+                </li>
+    
+            {%endif%}
+            {% if role == "cashier"%}
+            <li class="{{drawerMangement}}">
+                <a href="/drawer">
+                    <i class="fa fa-archive mr-20"></i><span>Drawer Management</span>
+                </a>
+            </li>
+            <li class="{{customerMangement}}">
+                <a href="/customer">
+                    <i class="fa fa-user-circle-o mr-20"></i><span>Customer Management</span>
+                </a>
+            </li>
+            <!-- <li class="{{machineManagement}}">
+                <a href="/machineManagemen">
+                    <i class="fa-solid fa-gears"></i><span> Machine Management</span>
+                </a>
+            </li>
+            <li class="{{gameSetting}}">
+                <a href="/user">
+                    <i class="fa fa-gamepad mr-20"></i><span> Game Setting</span>
+                </a>
+            </li> -->
+            <li class="{{report}}">
+            <li class="treeview {{report}}">
+                <a href="#">
+                    <i class="fa fa-file mr-20"></i> <span>Reports</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{chipsReport}}">
+                        <a href="/chipsReport">
+                            <i class="fa-regular fa-circle mr-20"></i><span> Chips Report</span>
+                        </a>
+                    </li>
+                    <li class="{{selfReport}}">
+                        <a href="/selfReport">
+                            <i class="fa-regular fa-circle mr-20"></i><span> Self Report</span>
+                        </a>
+                    </li>
+                    <li class="{{betReport}}">
+                        <a href="/betReport">
+                            <i class="fa-regular fa-circle mr-20"></i><span> Bet Report</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+            </li>
+
+            {%endif%}
+            {% if role == "superAdmin" %}
+            <li class="{{companyManagement}}">
+                <a href="/companyManagement">
+                    <i class="fa fa-building-o mr-20"></i><span> Company Management</span>
+                </a>
+            </li>
+            
+            {%endif%}
+            {% if (role == "superAdmin") or (role == "admin") %}
+            <li class="{{auditLog}}">
+                <a href="/auditLog">
+                    <i class="fa fa-history mr-20"></i><span> Audit Log</span>
+                </a>
+            </li>
+            {%endif%}
+            <!-- <li class="{{classActive}}">
+                <a href="/dashboard">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li> -->
+            <!--<li class="{{playerActive}}">
+                <li class="{{myPlayer}}">
+                    <a href="/myPlayer"><i class="fa fa-users"></i> 
+                            <span >
+                                Player Management
+                            </span>
+                          </a>
+                </li>
+            </li>
+            
+           
+            <li class="{{playerActive}}">
+              <li class="treeview {{playerActive}}">
+                <a href="#">
+                    <i class="fa fa-users mr-20"></i> <span>Player Management</span>
+                    <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                <li class="{{myPlayer}}">
+                    <a href="/myPlayer"><i class="fa fa-user"></i> 
+                            <span>
+                                Player Management
+                            </span>
+                    </a>
+                </li>
+                <li class="{{myGuestPlayer}}">
+                    <a href="/myGuestPlayer"><i class="fa fa-user"></i> Guest Player
+                            <span class="pull-right-container">
+                              <i class="pull-right"></i>
+                            </span>
+                          </a>
+                </li>
+                </ul>
+
+                </li>
+            </li>
+            <li class="{{playerActive}}">
+                <li class="{{myPlayer}}">
+                    <a href="/myPlayer"><i class="fa fa-users"></i> 
+                            <span>
+                                Player Management
+                            </span>
+                    </a>
+                </li>
+            </li>
+             <li class="{{playerChipsHistory}}">
+                <a href="/reports/playerChipsHistory"><i class="fa fa-print"></i> <span> Player's Chips History</span> 
+              </a>
+            </li>
+            <li class="{{playerWithdrawActive}}">
+                <a href="/playerWithdraw">
+                    <i class="fa fa-usd mr-20"></i><span> Player's Withdraw Request</span>
+                </a>
+            </li>
+            <li class="{{masterActive}}">
+                <a href="/master">
+                    <i class="fa fa-user mr-20"></i><span> Master Management</span>
+                </a>
+            </li>
+            <li class="{{playerChipsHistory}}">
+                <a href="/reports/playerChipsHistory"><i class="fa fa-print"></i> <span> Player's Chips History</span> 
+              </a>
+            </li>
+            <li class="{{agentActive}}">
+                <a href="/masterAgent">
+                    <i class="fa fa-user mr-20"></i><span> Agent Management</span>
+                </a>
+            </li>
+            <li class="{{playerChipsHistory}}">
+                <a href="/reports/playerChipsHistory"><i class="fa fa-print"></i> <span> Player's Chips History</span> 
+              </a>
+            </li>
+            <li class="{{roleManagement}}">
+                <li class="treeview {{roleManagement}}">
+                    <a href="#">
+                        <i class="fa fa-pie-chart mr-20"></i> <span>Role Management</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+
+                    <ul class="treeview-menu">
+                        <li class="{{addRoleManagement}}">
+                            <a href="/role"><i class="fa fa-circle-o"></i> Add Role
+                            <span class="pull-right-container">
+                              <i class="pull-right"></i>
+                            </span>
+                          </a>
+                        </li>
+                        <li class="{{roleManagementView}}">
+                            <a href="/roleView"><i class="fa fa-circle-o"></i> View Role
+                            <span class="pull-right-container">
+                              <i class="pull-right"></i>
+                            </span>
+                          </a>
+                        </li>
+                    </ul>
+
+                </li>
+            </li>
+            <li class="{{gameMaster}}">
+                <a href="/theme/{{session.details.gameId}}">
+                    <i class="fa fa-paint-brush mr-20"></i><span> Theme Master</span>
+                </a>
+            </li>
+            
+           
+            <li class="{{symbolReelActive}}">
+                <a href="/symbolReelData/{{session.details.gameId}}">
+                    <i class="fa fa-wrench mr-20"></i><span> Symbol Reel Payout Master</span>
+                </a>
+            </li>
+            <li class="{{grandMaster}}">
+                <a href="/grandMaster">
+                    <i class="fa fa-user mr-20"></i><span> Grand Master Management</span>
+                </a>
+            </li>
+            <li class="{{playerChipsHistory}}">
+                <a href="/reports/playerChipsHistory"><i class="fa fa-print"></i> <span> Player's Chips History</span> 
+              </a>
+            </li>
+            <li class="{{payoutMaster}}">
+                <a href="/payout">
+                    <i class="fa fa-gamepad mr-20"></i><span> Payout Management</span>
+                </a>
+            </li>
+            <li class="treeview {{Reports}}">
+                <a href="#">
+                    <i class="fa fa-print"></i> <span>Reports</span>
+                    <span class="pull-right-container">
+				      <i class="fa fa-angle-left pull-right"></i>
+				    </span>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li class="{{SlotChipsHistory}}">
+                        <a href="/reports/slotChipsHistory"><i class="fa fa-circle-o"></i> Game History
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                    <li class="{{SlotCommissionHistory}}">
+                        <a href="/reports/slotCommissionHistory"><i class="fa fa-circle-o"></i> Slot Commission History
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                    <li class="{{ChipsHistory}}">
+                        <a href="/reports/ChipsHistory"><i class="fa fa-circle-o"></i> User's Chips History
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                    <li class="{{playerChipsHistory}}">
+                        <a href="/reports/playerChipsHistory"><i class="fa fa-circle-o"></i> Player's Chips History
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li>
+                    <li class="{{commissionHistory}}">
+                        <a href="/reports/commissionHistory"><i class="fa fa-circle-o"></i> Commission History
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li> -->
+            <!-- <li class="{{commissionDateWise}}">
+                        <a href="/reports/commissionDateWise"><i class="fa fa-circle-o"></i> Commission Date Wise
+				        <span class="pull-right-container">
+				          <i class="pull-right"></i>
+				        </span>
+				      </a>
+                    </li> -->
+            <!-- <li class=" {{selfActive}}">
+                        <a href="/selfReports">
+                            <i class="fa fa-circle-o"></i> Break Down Commission
+                            <span class="pull-right-container">
+								<i class="pull-right"></i>
+							</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="{{cmsPage}}">
+                <a href="/cmsPage">
+                    <i class="fa fa-file mr-20"></i><span> CMS Management</span>
+                </a>
+            </li>
+            <li class="{{setting}}">
+                <a href="/setting">
+                    <i class="fa fa-gear mr-20"></i><span> Settings</span>
+                </a>
+            </li> -->
+        </ul>
+
+    </section>
+    <!-- /.sidebar -->
+</aside>

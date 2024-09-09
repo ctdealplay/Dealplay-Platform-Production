@@ -1,0 +1,187 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+
+            <ol class="breadcrumb">
+                <li><a href="/companyManagement"><i class="fa fa-user"></i> Company Management</a></li>
+                {% if company %}
+                <li class="active"><span>Edit Company</span></li>
+                {% else %}
+                <li class="active"><span>Add Company</span></li>
+                {% endif %}
+            </ol>
+        </section>
+        <!-- /Title -->
+        <!-- Row  -->
+        &nbsp;
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default card-view">
+                        <!-- <div class="panel-heading">
+                            <div class="pull-left">
+                                {% if user %}
+                                <h6 class="panel-title txt-dark">Edit Distributor</h6>
+                                {% else %}
+                                <h6 class="panel-title txt-dark">Add Distributor</h6>
+                                {% endif %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> -->
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {% if company %}
+                                            <form method="POST" action="/editCompany/{{company._id}}" name="addcashier"
+                                                class="form-horizontal">
+                                                {% else %}
+                                                <form method="POST" action="/addCompany" name="addCashier" id="addCashier"
+                                                    class="form-horizontal">
+                                                    {% endif %}
+                                                    <h1 style="font-size: 18px;">Company Details</h1>
+                                                    <hr>
+                                                    <!-- {% if user %}
+                                                    {%else%}
+                                                    <div class="form-group">
+                                                        <label for="exampleInputpwd_4"
+                                                            class="col-sm-3 control-label">User Type*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-users"></i></div>
+                                                                <select class="form-control" name="userType"
+                                                                    id="userType" data-validation="selectValidator">
+                                                                    <option value="">Select Type</option>
+                                                                    <option value="shop">Shop</option>
+                                                                    <option value="subDistributor">Sub Distributor
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {%endif%} -->
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Company Name*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                <input type="text" class="form-control" name="companyName"
+                                                                    id="companyName" value="{{company.companyName}}"
+                                                                    placeholder="Enter Name"
+                                                                    data-validation="requiredName validatedName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">Company Address*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-lock"></i></div>
+                                                                <input type="text" class="form-control"
+                                                                    name="companyAddress" id="companyAddress"
+                                                                    placeholder="Enter Address"
+                                                                    value="{{company.companyAddress}}"
+                                                                    data-validation="requiredAddress">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  
+                                                  
+                                                    <div class="form-group mb-0">
+                                                        <div class="col-sm-offset-3 col-sm-9">
+                                                            <input type="submit" class="btn btn-success btn-flat"
+                                                                value="submit">
+                                                            <a href="/companyManagement" class="btn btn-danger btn-flat">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <!-- /Row -->
+            </div>
+        </section>
+<input type="hidden" id="userId" value="{{company._id}}">
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+        var host = window.location.origin;
+        var minimum = $('#min').val()
+        var maximum = $('#max').val()
+        console.log(minimum);
+        console.log(maximum);
+        var host = window.location.origin;
+        
+       
+        let userId = $('#userId').val()
+        console.log("userId",userId);
+        $.formUtils.addValidator({
+            name: 'validatedName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                let validateEmail
+                $.ajax({
+                    type: 'POST',
+                    url: host + "/validateName",
+                    data: {
+                        email: value,
+                        distributorId: userId
+                    },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData == 'success') {
+                            validateEmail = false
+                        } else {
+                            validateEmail = true
+                        }
+                    }
+                });
+                return validateEmail
+            },
+            errorMessage: 'This name has been already taken!',
+            errorMessageKey: 'badRackCap'
+        });
+       
+        
+        $.formUtils.addValidator({
+            name: 'requiredName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter company name',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredAddress',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter company address',
+            errorMessageKey: 'badRackCap'
+        });
+     
+    });
+</script>
+{% endblock %}

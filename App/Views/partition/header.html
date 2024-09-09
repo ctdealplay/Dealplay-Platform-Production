@@ -1,0 +1,176 @@
+<header class="main-header">
+    {{session.role}}
+    <!-- Logo -->
+    <a href="/dashboard" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <!-- <span class="logo-mini"><img class="brand-img mr-10" src="/dist/img/logo.png" alt="brand" height="20px"
+                width="30px" /></span> -->
+        <!-- logo for regular state and mobile devices -->
+        <!-- <span class="logo-lg"><img class="brand-img mr-10" src="/dist/img/logo.png" alt="brand" height="45px" /></span> -->
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+       
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu ">
+             <div class="total_chips">
+                {%if session.details.role == "cashier"%}
+                <div style="margin-top: 5px;">
+                    <center>Total Balance: {{session.details.cash}}</center>
+                </div>
+                {%endif%}
+            </div>
+            <!--{%if session.details.role != "admin" and session.details.role != "sub-admin" %}
+            <div class="total_chips">
+                <div style="margin-top: 5px;">
+                    <center>Commission Rate: {{session.details.commission}}%</center>
+                </div>
+            </div>
+            {%endif%}
+            {%if session.details.role != "sub-admin"%}
+            <div class="total_chips">
+                <div style="margin-top: 5px;">
+                    <center>Commission Amount: {{session.details.commissionAmount}}</center>
+                </div>
+            </div>
+            {%endif%}
+            {%if session.details.role != "admin" and session.details.role != "sub-admin" %}
+            <div class="total_chips">
+                <div style="margin-top: 5px;">
+                    <center>Your Referral Code: {{session.details.referralCode}}</center>
+                </div>
+            </div>
+            {%endif%} -->
+
+            
+            <ul class="nav navbar-nav">
+
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{session.details.image}}" class="img-circle" alt="User Image" width="25px"
+                            height="25px">
+
+                        <span class="">{{session.details.name}}</span>
+                        <!-- <span class="hidden-xs">{{session.details.name}}</span> -->
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="{{session.details.image}}" class="img-circle" alt="User Image" width="50px"
+                                height="50px">
+                            <p>
+                                {{session.details.name}}
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+
+                                <a href="/profile" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- <div class="dropdown nav navbar-nav">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About Us
+                <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="about-us">
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Contact Us</a></li>
+                </ul>
+                </div> -->
+            <select class="nav navbar-nav zoomSize" style="margin: 10px; padding-left: 20px;  padding-right: 20px; padding-top: 5px; padding-bottom: 5px;">
+                <option value="s">Small</option>
+                <option value="m">Normal</option>
+                <option value="l">Large+</option>
+                <option value="xl">Large++</option>
+            </select> 
+            
+            <!-- <div class="dropdown pull-right" > -->
+                <!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                <span class="caret"></span></button> -->
+                <!-- <ul class="nav navbar-nav">
+
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="">Zoom</span>
+                        </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">HTML</a></li>
+                  <li><a href="#">CSS</a></li>
+                  <li><a href="#">JavaScript</a></li>
+                </ul>
+        </li>
+    </ul> -->
+              <!-- </div>  -->
+            <!-- <ul class="nav navbar-nav">
+
+            
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="">ZOOM</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                       
+                        <li class="user-footer d-flex">
+                            <div >
+                                <button style="margin-left: 3px;" type="button">SMALL</button>
+                            </div>
+                            <div >
+                                <button style="margin-left: 3px;" type="button">MEDIUM</button>
+                            </div>
+                            <div >
+                                <button style="margin-left: 3px;" type="button">LARGE</button>
+                            </div>
+                            <div >
+                                <button style="margin-left: 3px;" type="button">EX-LARGE</button>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul> -->
+        </div>
+        
+    </nav>
+<script>
+    let zoomSize={};
+    if(localStorage.getItem("zoomSize")!=undefined && localStorage.getItem("zoomSize")!="" && localStorage.getItem("zoomSize")!=null){
+        zoomSize=JSON.parse(localStorage.getItem("zoomSize"));
+        document.body.style.zoom = zoomSize.size;
+        $(`.zoomSize option[value=${zoomSize.tag}]`).attr('selected','selected');
+    }else{
+        document.body.style.zoom = "120%";
+        $(`.zoomSize option[value=m]`).attr('selected','selected');
+    }
+    
+    
+    $(".zoomSize").on("change",function(){
+        if($(this).val()=="s"){
+            document.body.style.zoom = "110%"
+            localStorage.setItem("zoomSize", JSON.stringify({tag:"s",size:"110%"}));
+        }else if($(this).val()=="m"){
+            document.body.style.zoom = "120%"
+            localStorage.setItem("zoomSize", JSON.stringify({tag:"m",size:"120%"}));
+        }else if($(this).val()=="l"){
+            document.body.style.zoom = "130%"
+            localStorage.setItem("zoomSize", JSON.stringify({tag:"l",size:"130%"}));
+        }else if($(this).val()=="xl"){
+            document.body.style.zoom = "140%"
+            localStorage.setItem("zoomSize", JSON.stringify({tag:"xl",size:"140%"}));
+        }
+    })
+</script>
+</header>

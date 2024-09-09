@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "partition/head.html" %}
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        
+        {% include "partition/header.html" %} {% include "partition/navigation.html" %}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            {% include "partition/notification.html" %}
+            <!-- Main Content -->
+            {% block body %}{% endblock %}
+
+            <!-- Control Sidebar -->
+
+            <!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+
+        {% include "partition/footer.html" %} {% block Jscript %}{% endblock %}
+
+    </div>
+</body>
+
+</html>

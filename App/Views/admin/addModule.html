@@ -1,0 +1,311 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li><a href="/moduleManagement"><i class="fas fa-user"></i> Module</a></li>
+                {% if module %}
+                <li class="active"><span>Edit Module</span></li>
+                {% else %}
+                <li class="active"><span>Add Module</span></li>
+                {% endif %}
+            </ol>
+        </section>
+        <!-- /Title -->
+        <!-- Row  -->
+        &nbsp;
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {% if module %}
+                                            <form method="POST" action="/editUserModule" name="addModule"  id="addModule"
+                                                class="form-horizontal" enctype="multipart/form-data">
+                                                {% else %}
+                                                <form method="POST" action="/addModule" name="addModule" id="addModule"
+                                                    class="form-horizontal" enctype="multipart/form-data">
+                                                    {% endif %}
+                                                    <h1 style="font-size: 18px;">Module Details</h1>
+                                                    <hr>
+                                                  
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Title*</label>
+                                                        <div class="col-sm-6">
+                                                                <select name="moduleTitle" class="form-control" id="moduleTitle" data-validation="requiredDrop">
+                                                                    {% for modules in module%}
+                                                                    <option value="{{modules._id}}">{{modules.title}}</option>
+                                                                    {%else%}
+                                                                    <option value="">No New Module</option>
+                                                                    {%endfor%}
+                                                                    <!-- <option value="volvo">Volvo</option>
+                                                                    <option value="saab">Saab</option>
+                                                                    <option value="mercedes">Mercedes</option>
+                                                                    <option value="audi">Audi</option> -->
+                                                                  </select>
+                                                                  
+                                                                <!-- <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                       
+                                                                <input type="text" class="form-control" name="title"
+                                                                    id="title" value="{{module.title}}"
+                                                                    placeholder="Enter Title"
+                                                                    data-validation="requiredTitle" disabled> -->
+                                                                   
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Price*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-money"></i></div>
+                                                                <input type="number" class="form-control" name="price"
+                                                                    id="price" value="{{module.price}}"
+                                                                    placeholder="Enter Price"
+                                                                    data-validation="requiredPrice" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Max Session*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-calendar"></i></div>
+                                                                <input type="number" class="form-control" name="maxSession"
+                                                                    id="maxSession" value="{{maxSession}}"
+                                                                    placeholder="Enter Session"
+                                                                    data-validation="requiredMaxSession validateMaxSession">
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Learner*</label>
+                                                        <div class="col-sm-6">
+                                                                <select name="learner" class="form-control" id="learner">
+                                                                    {% for learners in learner%}
+                                                                    <option value="{{learners._id}}">{{learners.firstName}}</option>
+                                                                    {%else%}
+                                                                    <option value="">No New Module</option>
+                                                                    {%endfor%}
+                                                                    <!-- <option value="volvo">Volvo</option>
+                                                                    <option value="saab">Saab</option>
+                                                                    <option value="mercedes">Mercedes</option>
+                                                                    <option value="audi">Audi</option> -->
+                                                                  </select>
+                                                                  
+                                                                <!-- <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                       
+                                                                <input type="text" class="form-control" name="title"
+                                                                    id="title" value="{{module.title}}"
+                                                                    placeholder="Enter Title"
+                                                                    data-validation="requiredTitle" disabled> -->
+                                                                   
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Session Management*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-envelope"></i></div>
+                                                                <input type="number" class="form-control" name="price"
+                                                                    id="price" value="{{module.price}}"
+                                                                    placeholder="Enter Price"
+                                                                    data-validation="requiredPrice">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                   
+                                                   
+													<div class="form-group">
+														<label class="col-sm-3 control-label"></label>
+														<div class="col-sm-6">
+													
+															<img class="brand-img mr-10" src="{{module.image}}" height="70px" id="imagePreview" />
+														</div>
+													</div>
+                                                    <!-- <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Business Name*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-briefcase"></i></div>
+                                                                <input type="text" class="form-control" name="businessName"
+                                                                    id="businessName" value="{{learner.businessUnit}}"
+                                                                    placeholder="Enter Business Name"
+                                                                    data-validation="">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+                                                   
+                                                   <input type="hidden" id="moduleId" value="{{learner._id}}">
+                                                    <div class="form-group mb-0">
+                                                        <div class="col-sm-offset-3 col-sm-9">
+                                                            <input type="submit" class="btn btn-success btn-flat"
+                                                                value="Submit">
+                                                            <a href="/moduleManagement" class="btn btn-danger btn-flat">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <!-- /Row -->
+            </div>
+        </section>
+        <input type="hidden" id="totalMaxSession" class="totalMaxSession" value="{{module.totalMaxSession}}"> 
+
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    function displayImage(inputId, previewId) {
+        var input = document.getElementById(inputId);
+        var preview = document.getElementById(previewId);
+        console.log("input",input,preview);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log("e",e);
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = "";
+        }
+    }
+    function loadData(moduleId) {
+        console.log("moduleId",moduleId);
+        let host = window.location.origin
+        $.ajax({
+                    type: 'POST',
+                    url: host + "/getModuleData",
+                    data: { moduleId: moduleId },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData.status == 'success') {
+                            console.log("resultData",resultData);
+                            $('#price').val(resultData.module.price)
+                            $('#maxSession').val(resultData.module.totalMaxSession)
+                            $('#moduleId').val(moduleId)
+                            $('#totalMaxSession').val(resultData.module.totalMaxSession)
+                            // if(resultData.moduleSession.length > 0){
+                            //     console.log("yyyyyyyyyyyyyyyyyyy");
+                                
+                            // $('#maxSession').val(resultData.module.totalMaxSession - resultData.moduleSession[0].totalAmount)
+                            // $('#totalMaxSession').attr("value",resultData.module.totalMaxSession - resultData.moduleSession[0].totalAmount)
+                            // }
+                            // else if(resultData.moduleSession.length == 0){
+                            //     $('#maxSession').val(resultData.module.totalMaxSession)
+                            //     $('#totalMaxSession').val(resultData.module.totalMaxSession)
+                            // }
+                        } else {
+                            validatePassword = false
+                        }
+                    }
+                });
+        
+        
+    }
+    $(document).ready(function () {
+		let module = $('#moduleTitle').val()
+        console.log("module",module);
+if(module != ""){
+    loadData(module)
+}
+$('#moduleTitle').change(function(){
+    let module = $('#moduleTitle').val()
+    loadData(module)
+})
+        
+var totalMaxSession = 0
+            
+        var host = window.location.origin;
+        let userId = $('#userId').val()
+        $.formUtils.addValidator({
+            name: 'requiredDrop',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please select module',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredTitle',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter name',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredPrice',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter price',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredMaxSession',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter max session',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'validateMaxSession',
+            validatorFunction: function (value, $el, config, language, $form) {
+               totalMaxSession =  $('#totalMaxSession').val()	
+                console.log("totalMaxSessionsdafgsadf",totalMaxSession);
+                console.log("totalMaxSession",value,totalMaxSession,value >= totalMaxSession);
+                
+            //    if(totalMaxSession){
+                    return Number(value) <= totalMaxSession
+            //    }else{
+            //     return true
+            //    }
+            },
+            errorMessage: function(value, $el, config, language, $form) {
+        var totalMaxSession = $('#totalMaxSession').val();	
+        return 'Please enter a value less than or equal to ' + totalMaxSession;
+    },
+            errorMessageKey: 'badRackCap'
+        });
+    });
+       
+</script>
+{% endblock %}

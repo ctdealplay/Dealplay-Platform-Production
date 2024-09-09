@@ -1,0 +1,328 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li><a href="/userManagement"><i class="fa fa-user"></i> Users</a></li>
+                {% if user %}
+                <li class="active"><span>Edit User</span></li>
+                {% else %}
+                <li class="active"><span>Add User</span></li>
+                {% endif %}
+            </ol>
+        </section>
+        <!-- /Title -->
+        <!-- Row  -->
+        &nbsp;
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {% if user %}
+                                            <form method="POST" action="/editAdmin/{{user._id}}" name="addCustomer"
+                                                class="form-horizontal">
+                                                {% else %}
+                                                <form method="POST" action="/addAdmin" name="addCustomer" id="addCustomer"
+                                                    class="form-horizontal">
+                                                    {% endif %}
+                                                    <h1 style="font-size: 18px;">Users Details</h1>
+                                                    <hr>
+                                                  
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">FirstName*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                <input type="text" class="form-control" name="firstName"
+                                                                    id="firstName" value="{{user.firstName}}"
+                                                                    placeholder="Enter Name"
+                                                                    data-validation="requiredFirstName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">LastName*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                <input type="text" class="form-control" name="lastName"
+                                                                    id="lastName" value="{{user.lastName}}"
+                                                                    placeholder="Enter Name"
+                                                                    data-validation="requiredLastName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Email*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-envelope"></i></div>
+                                                                <input type="text" class="form-control" name="email"
+                                                                    id="email" value="{{user.email}}"
+                                                                    placeholder="Enter Email"
+                                                                    data-validation="requiredEmail validatedEmail">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% if user %}
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Password*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-key"></i></div>
+                                                                <input type="text" class="form-control" name="password"
+                                                                    id="password" value="{{user.visibalePassword}}"
+                                                                    placeholder="Enter Password"
+                                                                    data-validation="requiredPassword validatedPassword" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {%else%}
+                                                        <div class="form-group">
+                                                            <label for="exampleInputuname_3"
+                                                                class="col-sm-3 control-label">Password*</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><i
+                                                                            class="fa fa-key"></i></div>
+                                                                        <input type="text" class="form-control" name="password"
+                                                                        id="password" value="{{password}}"
+                                                                        placeholder="Enter Password"
+                                                                        data-validation="requiredPassword validatedPassword" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {%endif%}
+                                                        
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Company Name*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-building"></i></div>
+                                                                        <select name="companyName" class="form-control" id="companyName">
+                                                                            {% for assign in company%}
+                                                                            <option value="{{assign._id}}" {%if assign._id == companyId%} selected {%endif%}>{{assign.companyName}}
+                                                                            </option>
+                                                                            {%endfor%}
+        
+                                                                        </select>
+                                                                <!-- <input type="text" class="form-control" name="companyName"
+                                                                    id="companyName" value="{{user.company.companyName}}"
+                                                                    placeholder="Enter Company Name"
+                                                                    data-validation=""> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Company Address*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-building"></i></div>
+                                                                <input type="text" class="form-control" name="companyAddress"
+                                                                    id="companyAddress" value="{{user.company.companyAddress}}"
+                                                                    placeholder="Enter Company Address"
+                                                                    data-validation="" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Business Unit*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-briefcase"></i></div>
+                                                                <input type="text" class="form-control" name="businessName"
+                                                                    id="businessName" value="{{user.businessUnit}}"
+                                                                    placeholder="Enter Business Name"
+                                                                    data-validation="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                
+                                                    <div class="form-group">
+                                                        <label for="exampleInputpwd_32"
+                                                            class="col-sm-3 control-label">Contact Number*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-mobile"></i></div>
+                                                                <input type="number" class="form-control" name="number"
+                                                                    placeholder="Enter Contact Number"
+								    value="{{user.phoneNumber}}"
+                                                                    data-validation="requiredNumber"
+                                                                    id="number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   <input type="hidden" id="userId" value="{{user._id}}">
+                                                    <div class="form-group mb-0">
+                                                        <div class="col-sm-offset-3 col-sm-9">
+                                                            <input type="submit" class="btn btn-success btn-flat"
+                                                                value="submit">
+                                                            <a href="/adminManagement" class="btn btn-danger btn-flat">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <!-- /Row -->
+            </div>
+        </section>
+
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+       let company = $('#companyName').val()
+       loadCompany(company)
+       $('#companyName').change(function(){
+        loadCompany($('#companyName').val())
+       })
+
+        var host = window.location.origin;
+        let userId = $('#userId').val()
+        $.formUtils.addValidator({
+            name: 'validatedEmail',
+            validatorFunction: function (value, $el, config, language, $form) {
+                let validateEmail
+                $.ajax({
+                    type: 'POST',
+                    url: host + "/validateEmail",
+                    data: {
+                        email: value,
+                        distributorId: userId
+                    },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData == 'success') {
+                            validateEmail = false
+                        } else {
+                            validateEmail = true
+                        }
+                    }
+                });
+                return validateEmail
+            },
+            errorMessage: 'This email has been already taken!',
+            errorMessageKey: 'badRackCap'
+        });
+        
+        
+        // $.validate({
+        //     form: '#addUser',
+        //     modules: 'security',
+        //     language: 'en',
+        //     onModulesLoaded: function () {
+        //         // Enable custom validator for the dropdown
+        //         $('#dropdown').displayOptions();
+        //         $.validate.validators.selectValidator = {
+        //             validator: function (value, $el, config, language, $form) {
+        //                 return $.formUtils.validators.validate_select($el, config, language, $form);
+        //             },
+        //             errorMessage: 'Please select an option',
+        //             errorMessageKey: 'badSelectValue'
+        //         };
+        //     }
+        // });
+        
+        $.formUtils.addValidator({
+            name: 'requiredFirstName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter first name',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredLastName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter last name',
+            errorMessageKey: 'badRackCap'
+        });
+        
+        $.formUtils.addValidator({
+            name: 'requiredPassword',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter password',
+            errorMessageKey: 'badRackCap'
+        });
+        
+        $.formUtils.addValidator({
+            name: 'requiredEmail',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter email',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredNumber',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter mobile number',
+            errorMessageKey: 'badRackCap'
+        });
+        
+    });
+    function loadCompany(company){
+        let host = window.location.origin
+        $.ajax({
+                    type: 'POST',
+                    url: host + "/getCompanies",
+                    data: {
+                        id: company,
+                    },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData.status == 'success') {
+                            $('#companyAddress').val(resultData.company.companyAddress)
+                        } 
+                    }
+                });
+    }
+</script>
+{% endblock %}

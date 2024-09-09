@@ -1,0 +1,236 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li><a href="/moduleManagement"><i class="fas fa-user"></i> Module</a></li>
+                {% if module %}
+                <li class="active"><span>Edit Module</span></li>
+                {% else %}
+                <li class="active"><span>Add Module</span></li>
+                {% endif %}
+            </ol>
+        </section>
+        <!-- /Title -->
+        <!-- Row  -->
+        &nbsp;
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {% if module %}
+                                            <form method="POST" action="/editModuleBuild/{{module._id}}" name="addModule"
+                                                class="form-horizontal" enctype="multipart/form-data">
+                                                {% else %}
+                                                <form method="POST" action="/addModuleBuild" name="addModule" id="addModule"
+                                                    class="form-horizontal" enctype="multipart/form-data">
+                                                    {% endif %}
+                                                    <h1 style="font-size: 18px;">Module Details</h1>
+                                                    <hr>
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Title*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+
+                                                                <input type="text" class="form-control" name="title"
+                                                                    id="title" value="{{module.title}}"
+                                                                    placeholder="Enter Title"
+                                                                    data-validation="requiredTitle">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                   
+                                                            <div class="form-group">
+                                                                <label for="exampleInputuname_3"
+                                                                    class="col-sm-3 control-label">Type*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-tag"></i></div>
+                                                                        <select name="tag" class="form-control"
+                                                                            id="tag">
+
+                                                                            <option value="featured">Featured</option>
+                                                                            <option value="action">Action</option>
+                                                                            <option value="store">Store</option>
+                                                                            <!-- <option value="volvo">Volvo</option>
+                                                        <option value="saab">Saab</option>
+                                                        <option value="mercedes">Mercedes</option>
+                                                        <option value="audi">Audi</option> -->
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Session Management*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-envelope"></i></div>
+                                                                <input type="number" class="form-control" name="price"
+                                                                    id="price" value="{{module.price}}"
+                                                                    placeholder="Enter Price"
+                                                                    data-validation="requiredPrice">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Image*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-file"></i></div>
+                                                                        {% if module %}
+                                                                        <input type="file" class="form-control"
+                                                                            name="image" id="image"
+                                                                            data-validation="mime size"
+                                                                            data-validation-allowing="jpg, png"
+                                                                            data-validation-max-size=""
+                                                                            data-validation-error-msg-required="No image selected"
+                                                                            onchange="displayImage('image','imagePreview')">
+                                                                        {%else%}
+                                                                        <input type="file" class="form-control" required
+                                                                            name="image" id="image"
+                                                                            data-validation="mime size required"
+                                                                            data-validation-allowing="jpg, png"
+                                                                            data-validation-max-size=""
+                                                                            data-validation-error-msg-required="No image selected"
+                                                                            onchange="displayImage('image','imagePreview')">
+                                                                        {%endif%}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Build File*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-file"></i></div>
+                                                                       
+                                                                        <input type="file" class="form-control"
+                                                                            name="buildFile" id="buildFile" value="{{module.buildUrl}}"
+                                                                          >
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label"></label>
+                                                                <div class="col-sm-6">
+
+                                                                    <img class="brand-img mr-10" src="{{module.image}}"
+                                                                        height="70px" id="imagePreview" />
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Business Name*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-briefcase"></i></div>
+                                                                <input type="text" class="form-control" name="businessName"
+                                                                    id="businessName" value="{{learner.businessUnit}}"
+                                                                    placeholder="Enter Business Name"
+                                                                    data-validation="">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+
+                                                            <input type="hidden" id="userId" value="{{learner._id}}">
+                                                            <div class="form-group mb-0">
+                                                                <div class="col-sm-offset-3 col-sm-9">
+                                                                    <input type="submit"
+                                                                        class="btn btn-success btn-flat" value="submit">
+                                                                    <a href="/moduleBuild"
+                                                                        class="btn btn-danger btn-flat">Cancel</a>
+                                                                </div>
+                                                            </div>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <!-- /Row -->
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    function displayImage(inputId, previewId) {
+        var input = document.getElementById(inputId);
+        var preview = document.getElementById(previewId);
+        console.log("input", input, preview);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log("e", e);
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = "";
+        }
+    }
+    $(document).ready(function () {
+
+        var host = window.location.origin;
+        let userId = $('#userId').val()
+        $.formUtils.addValidator({
+            name: 'requiredTitle',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter name',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredPrice',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter price',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredMaxSession',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter max session',
+            errorMessageKey: 'badRackCap'
+        });
+
+
+    });
+</script>
+{% endblock %}

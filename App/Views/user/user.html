@@ -1,0 +1,424 @@
+{% extends "partition/layout.html" %}
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+     
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li class="active">Users</li>
+            </ol>
+        </section>
+        <!-- /Title -->
+
+        <br>
+        <!-- <div class="col-sm-3">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></div>
+                <select class="form-control" name="status" id="status">
+                    <option value="">All</option>
+                        <option value="active">Active</option>
+                        <option value="inactive" >Inactive</option>
+                    </select>
+            </div>
+        </div> -->
+        <br>
+        <!-- Row -->
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-heading">
+                            <!-- <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input required="required" class="form-control" placeholder="DD/MM/YYYY"
+                                        name="start" type="text" id="start" autocomplete="off"
+                                        data-date-format="YYYY-MM-DD HH:mm" value="{{start}}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input required="required" class="form-control" placeholder="DD/MM/YYYY" name="end"
+                                        type="text" id="end" autocomplete="off" data-date-format="YYYY-MM-DD HH:mm"
+                                        value="{{end}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label> &nbsp;</label><br>
+                                <button class="btn btn-primary" id="dateSearch"><i class="fa fa-search"></i></button>
+                            </div> -->
+                            <!-- <div class="pull-left">
+                                <h6 class="panel-title txt-dark">Users</h6>
+                            </div> -->
+                            <div class="pull-right">
+                                <a href="/addUser"
+                                  ><button type="button" class="btn btn-primary btn-md">
+                                    <i class="fa fa-plus"></i> Add Single User
+                                  </button></a
+                                >
+                              </div>
+                              &nbsp;
+                              <div class="pull-right">
+                                <a herf="#" data-toggle="modal" data-target="#bulkUsers"
+                                  ><button
+                                    type="button"
+                                    class="btn btn-primary btn-md"
+                                    style="margin-right: 5px"
+                                  >
+                                    Add Bulk Users
+                                  </button></a
+                                >
+                              </div>
+                              &nbsp;
+                              <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table id="myTable" class="table table-hover display  pb-30">
+                                            <thead>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Password</th>
+                                                    <th>Company Name</th>
+                                                    <th>Company Address</th>
+                                                    <th>Business Unit</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Learner Count</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div
+  id="bulkUsers"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+  style="display: none"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form
+        action="/bulkUsersCreate"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">Upload CSV File</label>
+                <div class="preview-zone hidden">
+                  <div class="dropBox dropBox-solid">
+                    <div class="dropBox-header with-border">
+                      <div><b>Preview</b></div>
+                      <div class="dropBox-tools pull-right">
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-xs remove-preview"
+                        >
+                          <i class="fa fa-times"></i> Reset This Form
+                        </button>
+                      </div>
+                    </div>
+                    <div class="dropBox-body"></div>
+                  </div>
+                </div>
+                <div class="dropzone-wrapper">
+                  <div class="dropzone-desc">
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    <p>Choose a <b>CSV</b> file or drag it here.</p>
+                  </div>
+                  <input type="file" name="img_logo" class="dropzone" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary pull-right">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+        function readFile(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          var htmlPreview = "<p>" + input.files[0].name + "</p>";
+          var wrapperZone = $(input).parent();
+          var previewZone = $(input).parent().parent().find(".preview-zone");
+          var boxZone = $(input)
+            .parent()
+            .parent()
+            .find(".preview-zone")
+            .find(".box")
+            .find(".box-body");
+
+          wrapperZone.removeClass("dragover");
+          previewZone.removeClass("hidden");
+          boxZone.empty();
+          boxZone.append(htmlPreview);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function reset(e) {
+      e.wrap("<form>").closest("form").get(0).reset();
+      e.unwrap();
+    }
+
+    $(".dropzone").change(function () {
+      readFile(this);
+    });
+
+    $(".dropzone-wrapper").on("dragover", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).addClass("dragover");
+    });
+
+    $(".dropzone-wrapper").on("dragleave", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).removeClass("dragover");
+    });
+
+    $(".remove-preview").on("click", function () {
+      var boxZone = $(this).parents(".preview-zone").find(".box-body");
+      var previewZone = $(this).parents(".preview-zone");
+      var dropzone = $(this).parents(".form-group").find(".dropzone");
+      boxZone.empty();
+      previewZone.addClass("hidden");
+      reset(dropzone);
+    });
+        var host = window.location.origin;
+        $('#start, #end').datepicker({
+            format: "dd/mm/yyyy",
+            timepicker: false
+        });
+        LoadData()
+        $('#status').on('change', function () {
+            console.log("yess it chaneg ");
+            dataTable.draw();
+        });
+        $("#dateSearch").click(function () {
+            console.log("click");
+            $('#myTable').dataTable().fnDestroy();
+            LoadData();
+        })
+        function capitalizeFirstLetter(string) {
+            console.log("String",string);
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+        function LoadData() {
+
+            var startdate = $("#start").val();
+            var enddate = $("#end").val();
+            
+            console.log(window.location.url);
+            let dataTable = $('#myTable').DataTable({
+                "oLanguage": {
+                    "sSearch": "Search Firstname"
+                },
+                // "scrollX": true,
+                // "searching": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "autoWidth": false,
+                "pageLength": 10,
+                "ajax": {
+                    url: host + '/users/getUser',
+                    data: function (data) {
+                        data.startdate = startdate;
+                        data.enddate = enddate;
+                    }
+                },
+                "createdRow": function (row, data, dataIndex) {
+                    if (data.role === "shop") {
+                        $(row).css('background-color', '#C0C0C0');
+                    }
+                },
+                "columns": [
+                    // { "data": "_id" },
+                    {
+                        "data": "firstName"
+                    }, {
+                        "data": "lastName"
+                    },
+                     {
+                        "data": "email"
+                    }, 
+                    {
+                        "data":"visibalePassword"
+                    }, 
+                    {
+                        "data": "company.companyName",
+                        render: function(data, type, row){
+                            if(data){
+                                return data 
+                            }else{
+                                return "<span style=color:red;>N/A</span>"
+                            }
+                        }
+                    },
+                    {
+                        "data": "company.companyAddress",
+                        render: function(data, type, row){
+                            if(data){
+                                return data 
+                            }else{
+                                return "<span style=color:red;>N/A</span>"
+                            }
+                        }
+                    },
+                    {
+                        "data": "businessUnit",
+                        render: function(data, type, row){
+                            if(data){
+                                return data 
+                            }else{
+                                return "<span style=color:red;>N/A</span>"
+                            }
+                        }
+                    },
+                    {
+                        "data": "phoneNumber",
+                    },
+                    {
+                        "data": "learnerCount",
+                        render: function(data, type, row){
+                            return '<a href="/learner/'+row._id+'">'+data+'</a>'
+                        }
+                    },
+                    {
+                        "data": "status",
+                        render: function (data, type, row) {
+                            console.log("row", row);
+                            if (data == "active") {
+                                return '<a class="changeStatus" style="color:green" href="#" id="' + row._id + '" >Active</a>'
+                            } else {
+                                return '<a class="changeStatus" style="color:red" href="#" id="' + row._id + '" >inActive</a>'
+                            }
+                        }
+                    },  {
+                        "data": "action",
+                        render: function (data, type, row) {
+                           
+                                    return '<a href="/editUser/' + row._id + '" class="" ><button type="button" class="btn btn-warning btn-xs btn-rounded" name="edit" title="Edit Player"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <a href="/deleteUser/' + row._id + '" class="" ><button type="button" class="btn btn-danger btn-xs btn-rounded" name="delete" title="Delete Player"><i class="fa fa-trash" aria-hidden="true"></i></button></a>'
+                                
+                                
+                           
+                            // return '<a href="/userEdit/'+row.id+'"><button type="button" class="btn btn-warning btn-xs" name="edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <button type="button" name="delete" id="'+row.id+'" class="btn btn-danger btn-xs delete"><i class="fa fa-trash" aria-hidden="true"></i></button> '
+                            // <a href="/userEdit/' + row.id + '"><button type="button" class="btn btn-warning btn-xs btn-rounded" name="edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <button type="button" name="delete" id="' + row.id + '" class="btn btn-danger btn-xs delete btn-rounded"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        }
+                    }
+                ]
+            });
+        }
+        $(function () {
+            "use strict";
+
+            var SweetAlert = function () { };
+
+            SweetAlert.prototype.init = function () {
+
+                //Parameter
+                $('body').on('click', '.changeStatus', function (e) {
+                    var id = $(this).attr('id');
+                    var thisElement = this;
+                    swal({
+                        title: "Are you sure?",
+                        text: "Do you want to update the status?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#e69a2a",
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            $.ajax({
+                                type: 'POST',
+                                url: host + "/user/changeStatus",
+                                data: {
+                                    id: id
+                                },
+                                success: function (resultData) {
+                                    // alert(resultData)
+                                    console.log(resultData);
+                                    if (resultData == 'success') {
+                                        // $(thisElement).parent().parent().hide(700);
+                                        window.location.reload()
+                                    } else {
+                                        alert("Something went wrong")
+                                    }
+                                    // alert("Save Complete")
+                                }
+                            });
+                        } else {
+
+                        }
+                    });
+                    return false;
+                });
+
+
+
+            },
+                $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert;
+
+            $.SweetAlert.init();
+        });
+        $("body").on("click", ".addChips", function () {
+            var userId = $(this).attr("id");
+            console.log(userId)
+            // console.log("player id ----------->",PlayerId)
+            var html = '<input type="hidden" name="userId" value="' + userId + '" />';
+            $("#chipsAdd").html(html);
+        });
+    });
+</script>
+{% endblock %}
