@@ -1540,25 +1540,29 @@ let gameData = {FeaturedModules:[],ActionModules:[],StoredModules:[],AllModules:
                   gameData.FeaturedModules.push({
                       ModuleName: game[gameCount].title,
                       BundleUrl:game[gameCount].buildUrl,
-                      ImageUrl:game[gameCount].image
+                      ImageUrl:game[gameCount].image,
+			  SceneName:game[gameCount].SceneName
                   })
               } if(game[gameCount].tag == "action"){
                   gameData.ActionModules.push({
                       ModuleName: game[gameCount].title,
                       BundleUrl:game[gameCount].buildUrl,
-                      ImageUrl:game[gameCount].image
+                      ImageUrl:game[gameCount].image,
+			   SceneName:game[gameCount].SceneName
                   })
               } if(game[gameCount].tag == "store"){
                   gameData.StoredModules.push({
                       ModuleName: game[gameCount].title,
                       BundleUrl:game[gameCount].buildUrl,
-                      ImageUrl:game[gameCount].image
+                      ImageUrl:game[gameCount].image,
+			   SceneName:game[gameCount].SceneName
                   })
               }
               gameData.AllModules.push({
                   ModuleName: game[gameCount].title,
                   BundleUrl:game[gameCount].buildUrl,
-                  ImageUrl:game[gameCount].image
+                  ImageUrl:game[gameCount].image,
+		  SceneName:game[gameCount].SceneName
               })
           }
           console.log("game-------->",game);

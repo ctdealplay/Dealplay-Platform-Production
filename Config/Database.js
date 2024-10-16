@@ -42,5 +42,5 @@ module.exports = {
             database: 'ais_casinogame_dev'
         }
     },
-    baseUrl: "http://localhost:3000"
+    baseUrl: "http://16.171.55.6:3005"
 }

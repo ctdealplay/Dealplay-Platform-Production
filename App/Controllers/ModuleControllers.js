@@ -7,6 +7,7 @@ let mongoose = require('mongoose')
 const csv = require('csv-parser');
 const xlsx = require('xlsx');
 const { title } = require("process");
+
 // var modules = ['Player Management','Player Withdraw', 'User Management', "All User", "My Site Owner", 'Theme Master',  'Line Master', 'Symbol Reel Payout', 'Reports', 'CMS Management',
 //     'Settings',
 // ];
@@ -134,6 +135,7 @@ module.exports = {
       console.log("req.files",req);
       
       let moduleBuild = await Sys.App.Services.ModuleServices.getSingleModuleBuild({_id:mongoose.Types.ObjectId(req.body.title)})
+	console.log("moduleBuild",moduleBuild)
       let module = await Sys.App.Services.ModuleServices.createModule({
         title:moduleBuild.title,
         price:req.body.price,
@@ -142,7 +144,8 @@ module.exports = {
         totalMaxSession:req.body.maxSession,
         userId:req.body.assign,
         tag:moduleBuild.tag,
-        type:"admin"
+        type:"admin",
+        SceneName:moduleBuild.SceneName
       })
       console.log("module",module);
       
@@ -164,6 +167,7 @@ module.exports = {
   },
   addModuleBuild: async function(req,res){
     try{
+      // Call the function to list files in the folder
       var data = {
         App: Sys.Config.App.details,
         error: req.flash("error"),
@@ -210,11 +214,13 @@ module.exports = {
           }
       })
     }
+	console.log("req.body.sceneName",req.body.sceneName)
       await Sys.App.Services.ModuleServices.createModuleBuild({
         title: req.body.title,
         image:'/uploads/gameImage/'+gameImage,
         buildUrl:'/uploads/game/'+game,
-        tag:req.body.tag
+        tag:req.body.tag,
+        SceneName:req.body.sceneName
       })
       req.flash('success', 'Module added successfully! Your changes have been saved.');
         return res.redirect('/moduleBuild')

@@ -92,12 +92,12 @@
                 <li><a href="#">Contact Us</a></li>
                 </ul>
                 </div> -->
-            <select class="nav navbar-nav zoomSize" style="margin: 10px; padding-left: 20px;  padding-right: 20px; padding-top: 5px; padding-bottom: 5px;">
+           <!-- <select class="nav navbar-nav zoomSize" style="margin: 10px; padding-left: 20px;  padding-right: 20px; padding-top: 5px; padding-bottom: 5px;">
                 <option value="s">Small</option>
                 <option value="m">Normal</option>
                 <option value="l">Large+</option>
                 <option value="xl">Large++</option>
-            </select> 
+	   </select>--> 
             
             <!-- <div class="dropdown pull-right" > -->
                 <!-- <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
@@ -157,20 +157,20 @@
     }
     
     
-    $(".zoomSize").on("change",function(){
-        if($(this).val()=="s"){
-            document.body.style.zoom = "110%"
-            localStorage.setItem("zoomSize", JSON.stringify({tag:"s",size:"110%"}));
-        }else if($(this).val()=="m"){
-            document.body.style.zoom = "120%"
-            localStorage.setItem("zoomSize", JSON.stringify({tag:"m",size:"120%"}));
-        }else if($(this).val()=="l"){
-            document.body.style.zoom = "130%"
-            localStorage.setItem("zoomSize", JSON.stringify({tag:"l",size:"130%"}));
-        }else if($(this).val()=="xl"){
-            document.body.style.zoom = "140%"
-            localStorage.setItem("zoomSize", JSON.stringify({tag:"xl",size:"140%"}));
-        }
-    })
+   // $(".zoomSize").on("change",function(){
+    //    if($(this).val()=="s"){
+    //        document.body.style.zoom = "110%"
+    //        localStorage.setItem("zoomSize", JSON.stringify({tag:"s",size:"110%"}));
+    //    }else if($(this).val()=="m"){
+   //         document.body.style.zoom = "120%"
+    //        localStorage.setItem("zoomSize", JSON.stringify({tag:"m",size:"120%"}));
+     //   }else if($(this).val()=="l"){
+     //       document.body.style.zoom = "130%"
+     //       localStorage.setItem("zoomSize", JSON.stringify({tag:"l",size:"130%"}));
+      //  }else if($(this).val()=="xl"){
+       //     document.body.style.zoom = "140%"
+       //     localStorage.setItem("zoomSize", JSON.stringify({tag:"xl",size:"140%"}));
+       // }
+   // })
 </script>
 </header>

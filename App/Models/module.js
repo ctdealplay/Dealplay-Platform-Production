@@ -43,6 +43,11 @@ const ModuleSchema = new Schema({
         type:"string",
         default:""
     },
+   SceneName:{
+	type:"string",
+        default:""
+
+   },
     updatedAt : { type: Date, default: Date.now() },
     createdAt : { type: Date, default: Date.now() }
 }, {

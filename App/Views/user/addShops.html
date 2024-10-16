@@ -1,0 +1,724 @@
+{% extends "partition/layout.html" %} {% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li><a href="/user"><i class="fa fa-user"></i> User</a></li>
+                {% if user %}
+                <li class="active"><span>Edit User</span></li>
+                {% else %}
+                <li class="active"><span>Add User</span></li>
+                {% endif %}
+            </ol>
+        </section>
+        <!-- /Title -->
+        <!-- Row  -->
+        &nbsp;
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default card-view">
+                        <!-- <div class="panel-heading">
+                            <div class="pull-left">
+                                {% if user %}
+                                <h6 class="panel-title txt-dark">Edit Distributor</h6>
+                                {% else %}
+                                <h6 class="panel-title txt-dark">Add Distributor</h6>
+                                {% endif %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div> -->
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <div class="form-wrap">
+                                            {% if user %}
+                                            <form method="POST" action="/editUsers/{{user._id}}" name="adduser"
+                                                class="form-horizontal">
+                                                {% else %}
+                                                <form method="POST" action="/addUser" name="addUser" id="addUser"
+                                                    class="form-horizontal">
+                                                    {% endif %}
+                                                    <h1 style="font-size: 18px;">Users Details</h1>
+                                                    <hr>
+                                                    {% if user %}
+                                                    {%else%}
+                                                    <div class="form-group">
+                                                        <label for="exampleInputpwd_4"
+                                                            class="col-sm-3 control-label">User Type*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-users"></i></div>
+                                                                <select class="form-control" name="userType"
+                                                                    id="userType" data-validation="selectValidator">
+                                                                    <option value="">Select Type</option>
+                                                                    <option value="shop">Shop</option>
+                                                                    <option value="subDistributor">Sub Distributor
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {%endif%}
+                                                    <div class="form-group">
+                                                        <label for="exampleInputuname_3"
+                                                            class="col-sm-3 control-label">Username*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                <input type="text" class="form-control" name="username"
+                                                                    id="username" value="{{user.userName}}"
+                                                                    placeholder="Enter Name"
+                                                                    data-validation="requiredUsername validatedUserName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">Password*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-lock"></i></div>
+                                                                <input type="password" class="form-control"
+                                                                    name="password" id="password"
+                                                                    placeholder="Enter Password"
+                                                                    value="{{user.password}}"
+                                                                    data-validation="requiredPassword">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">Name*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-user"></i></div>
+                                                                <input type="text" class="form-control" name="name"
+                                                                    id="name" data-validation="requiredName"
+                                                                    placeholder="Enter Name" value="{{user.name}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputpwd_32"
+                                                            class="col-sm-3 control-label">Contact Number*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-earphone"></i></div>
+                                                                <input type="number" class="form-control" name="number"
+                                                                    placeholder="Enter Contact Number"
+                                                                    value="{{user.mobile}}"
+                                                                    data-validation="requiredNumber vlidateMobileNumber"
+                                                                    id="number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">Email*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-envelope"></i></div>
+                                                                <input type="email" class="form-control" name="email"
+                                                                    id="email" value="{{user.email}}"
+                                                                    placeholder="Enter Email"
+                                                                    data-validation="requiredEmail validatedEmail">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="userId" name="userId" value="{{user._id}}">
+                                                    <!-- <div class="form-group">
+                                                        <label for="exampleInputEmail_3" class="col-sm-3 control-label">Country*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></div>
+                                                                <input type="text" class="form-control" name="country" id="country" placeholder="Enter Country" value="{{user.country}}">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">City*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="glyphicon glyphicon-flag"></i></div>
+                                                                <input type="text" class="form-control" name="city"
+                                                                    id="city" placeholder="Enter city"
+                                                                    value="{{user.city}}"
+                                                                    data-validation="requiredCity">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="gameMode">
+                                                        <h1 style="font-size: 18px;">Game Mode</h1>
+                                                        <hr>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputpwd_4"
+                                                                class="col-sm-3 control-label">Game Mode*</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><i
+                                                                            class="glyphicon glyphicon-pushpin"></i>
+                                                                    </div>
+                                                                    <select class="form-control" name="mode" id="mode">
+                                                                        <option value="sweepStakes" {{ "selected" if
+                                                                            user.gameMode=='sweepStakes' else "" }}>
+                                                                            SweepStakes</option>
+                                                                        <option value="classic" {{ "selected" if
+                                                                            user.gameMode=='classic' else "" }}>Classic
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="gameMode">
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <label class="switch">
+                                                                        <input type="checkbox" class="check"
+                                                                            id="bounceBack" name="bounceBack" {% if
+                                                                            user.bounceBack.length> 0 %}checked{% endif
+                                                                        %}>
+                                                                        <span class="slider round"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback
+                                                                    Limit*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="glyphicon glyphicon-pushpin"></i>
+                                                                        </div>
+                                                                        <select class="form-control"
+                                                                            name="bonceBackLimit" id="bonceBackLimit"
+                                                                            disabled>
+                                                                            <option value="1" {{ "selected" if
+                                                                                user.bonceBackLimit=='1' else "" }}>1
+                                                                            </option>
+                                                                            <option value="2" {{ "selected" if
+                                                                                user.bonceBackLimit=='2' else "" }}>2
+                                                                            </option>
+                                                                            <option value="3" {{ "selected" if
+                                                                                user.bonceBackLimit=='3' else "" }}>3
+                                                                            </option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <p class="note">Renew after 24 hours per player.</p>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback1*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-usd"></i></div>
+                                                                        <input type="number" class="form-control"
+                                                                            id="bounce1" name="bounce1" min="0"
+                                                                            value="{{user.bounceBack[0].bounceBackUsd}}"
+                                                                            max="2" disabled>
+                                                                    </div>
+                                                                    <p class="note">Maximum 2$ bounceback for 0 to 19.99
+                                                                        deposit.</p>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback2*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-usd"></i></div>
+                                                                        <input type="number" class="form-control"
+                                                                            id="bounce2" name="bounce2" min="0" max="10"
+                                                                            value="{{user.bounceBack[1].bounceBackUsd}}"
+                                                                            disabled>
+                                                                    </div>
+                                                                    <p class="note">Maximum 10$ bounceback for 20 to
+                                                                        49.99 deposit.</p>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback3*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-usd"></i></div>
+                                                                        <input type="number" class="form-control"
+                                                                            id="bounce3" name="bounce3" min="0"
+                                                                            value="{{user.bounceBack[2].bounceBackUsd}}"
+                                                                            max="18" disabled>
+                                                                    </div>
+                                                                    <p class="note">Maximum 18$ bounceback for 50 to
+                                                                        99.99 deposit.</p>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputpwd_4"
+                                                                    class="col-sm-3 control-label">Bounceback4*</label>
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i
+                                                                                class="fa fa-usd"></i></div>
+                                                                        <input type="number" class="form-control"
+                                                                            id="bounce4" name="bounce4" min="0"
+                                                                            value="{{user.bounceBack[3].bounceBackUsd}}"
+                                                                            max="35" disabled>
+                                                                    </div>
+                                                                    <p class="note">Maximum 35$ bounceback for greater
+                                                                        than or equal to 100 deposit.</p>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h1 style="font-size: 18px;">Game RTP Settings</h1>
+                                                    <hr>
+                                                    <!-- {%for i in range(5)%}
+                                                    <div class="form-group">
+                                                        <label for="exampleInputpwd_4" class="col-sm-3 control-label">Game{{i}}*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i class="fa fa-percent"></i></div>
+                                                                <select class="form-control" name="game{{i}}" id="game{{i}}">
+                                                                    <option value="70" {{ "selected" if user.rtpSettings[i].game == '70' else "" }} >70</option>
+                                                                    <option value="75" {{ "selected" if  user.rtpSettings[i].game=='75' else "" }} >75</option>
+                                                                    <option value="80" {{ "selected" if  user.rtpSettings[i].game=='80' else "" }} >80</option>
+                                                                    <option value="85" {{ "selected" if  user.rtpSettings[i].game=='85' else "" }} >85</option>
+                                                                    <option value="90" {{ "selected" if  user.rtpSettings[i].game=='90' else "" }} >90</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {%endfor%} -->
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail_3"
+                                                            class="col-sm-3 control-label">Time Zone*</label>
+                                                        <div class="col-sm-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i
+                                                                        class="fa fa-clock-o"></i></div>
+                                                                <select class="form-control" name="timeZone"
+                                                                    id="timeZone">
+                                                                    <option value="-5" {{ "selected" if
+                                                                        user.timeZone=='-5' else "" }}>(GMT -05:00)
+                                                                        Eastern Time (US & Canada)</option>
+                                                                    <option value="-6" {{ "selected" if
+                                                                        user.timeZone=='-6' else "" }}>(GMT -06:00)
+                                                                        Central Time (US & Canada)</option>
+                                                                    <option value="-7" {{ "selected" if
+                                                                        user.timeZone=='-7' else "" }}>(GMT -07:00)
+                                                                        Mountain Time (US & Canada)</option>
+                                                                    <option value="-8" {{ "selected" if
+                                                                        user.timeZone=='-8' else "" }}>(GMT -08:00)
+                                                                        Pacific Time (US & Canada)</option>
+                                                                    <option value="-9" {{ "selected" if
+                                                                        user.timeZone=='-9' else "" }}>(GMT -09:00)
+                                                                        Alaska</option>
+                                                                    <option value="-10" {{ "selected" if
+                                                                        user.timeZone=='-10' else "" }}>(GMT -10:00)
+                                                                        Hawaii</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="gameRtp">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputpwd_4"
+                                                                class="col-sm-3 control-label">Comunity Price*</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><i
+                                                                            class="fa fa-usd"></i></div>
+                                                                    <select class="form-control" name="comunityPrice"
+                                                                        id="comunityPrice">
+                                                                        <option value="0.02" {{ "selected" if
+                                                                            user.comunityPrice=='0.02' else "" }}>0.02
+                                                                        </option>
+                                                                        <option value="0.05" {{ "selected" if
+                                                                            user.comunityPrice=='0.05' else "" }}>0.05
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail_3"
+                                                                class="col-sm-3 control-label">Percentage*</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><i
+                                                                            class="fa fa-percent"></i></div>
+                                                                    <input type="text" class="form-control"
+                                                                        name="percentage" id="percentage"
+                                                                        placeholder="Enter percentage"
+                                                                        value="{{user.percentage}}"
+                                                                        data-validation="requiredPercentage">
+                                                                </div>
+                                                                <span class="help-block with-errors"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="exampleInputpwd_4"
+                                                                class="col-sm-3 control-label">Cashout Setting*</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="input-group">
+                                                                    <label class="switch">
+                                                                    <input type="checkbox" class="check" id="cashOut"
+                                                                        name="cashOut" {% if user.cashOut=="true"
+                                                                        %}checked{% endif %}>
+                                                                        <span class="slider round"></span>
+                                                                        </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        <div class="col-sm-offset-3 col-sm-9">
+                                                            <input type="submit" class="btn btn-success btn-flat"
+                                                                value="submit">
+                                                            <a href="/user" class="btn btn-danger btn-flat">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <input type="hidden" id="type" value="{{user.role}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row -->
+                <input type="hidden" id="min" value="{{commissionRange.minimum}}">
+                <input type="hidden" id="max" value="{{commissionRange.maximum}}">
+                <!-- /Row -->
+            </div>
+        </section>
+
+    </div>
+</div>
+
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+        var host = window.location.origin;
+        var minimum = $('#min').val()
+        var maximum = $('#max').val()
+        console.log(minimum);
+        console.log(maximum);
+        var host = window.location.origin;
+        
+        if ($("#userType").val() == "" || $("#userType").val() == "subDistributor") {
+            $('#gameMode').show()
+            $('#gameRtp').show()
+
+        }
+        console.log("type",$("#type").val());
+        if($("#type").val() == "shop"){
+            $('#gameMode').hide()
+                $('#gameRtp').hide()
+        }else if($("#type").val() == "subDistributor"){
+            $('#gameMode').show()
+                $('#gameRtp').show()
+        }
+        $("#userType").change(function () {
+            console.log("userType", $(this).val());
+            if ($(this).val() == "shop") {
+                $('#gameMode').hide()
+                $('#gameRtp').hide()
+                $('#cashOut').prop('checked', false);
+                $('#bounceBack').prop('checked', false);
+                $('#bounceBack').attr('value', 'false');
+                $('#bonceBackLimit').attr("disabled", "disabled")
+                $('#bounce1').attr("disabled", "disabled")
+                $('#bounce2').attr("disabled", "disabled")
+                $('#bounce3').attr("disabled", "disabled")
+                $('#bounce4').attr("disabled", "disabled")
+            }
+            else if ($(this).val() == "" || $(this).val() == "subDistributor") {
+                $('#gameMode').show()
+                $('#gameRtp').show()
+
+            }
+        })
+        if ($('#bounceBack').is(':checked')) {
+            console.log("checked", $('#bounceBack').is(':checked'));
+            $('#bounceBack').attr('value', 'true');
+            $('#bonceBackLimit').removeAttr("disabled")
+            $('#bounce1').removeAttr("disabled")
+            $('#bounce2').removeAttr("disabled")
+            $('#bounce3').removeAttr("disabled")
+            $('#bounce4').removeAttr("disabled")
+        }
+        if ($('#cashOut').is(':checked')) {
+            $('#cashOut').attr('value', 'true');
+        }
+        $("#bounceBack").change(function () {
+            if ($(this).is(':checked')) {
+                $(this).attr('value', 'true');
+                $('#bonceBackLimit').removeAttr("disabled")
+                $('#bounce1').removeAttr("disabled")
+                $('#bounce2').removeAttr("disabled")
+                $('#bounce3').removeAttr("disabled")
+                $('#bounce4').removeAttr("disabled")
+
+            } else {
+                $(this).attr('value', 'false');
+                $('#bonceBackLimit').attr("disabled", "disabled")
+                $('#bounce1').attr("disabled", "disabled")
+                $('#bounce2').attr("disabled", "disabled")
+                $('#bounce3').attr("disabled", "disabled")
+                $('#bounce4').attr("disabled", "disabled")
+            }
+        })
+        $("#cashOut").change(function () {
+            if ($(this).is(':checked')) {
+                $(this).attr('value', 'true');
+            } else {
+                $(this).attr('value', 'false');
+            }
+        })
+        $('#mode').change(function () {
+            console.log("change");
+            let mode = $('#mode').val()
+            if (mode == "classic") {
+                $('.gameMode').hide()
+                $('#bonceBackLimit').attr("formnovalidate", "formnovalidate")
+                $('#bounce1').attr("formnovalidate", "formnovalidate")
+                $('#bounce2').attr("formnovalidate", "formnovalidate")
+                $('#bounce3').attr("formnovalidate", "formnovalidate")
+                $('#bounce4').attr("formnovalidate", "formnovalidate")
+                $('#bounceBack').prop('checked', false);
+                $('#bounceBack').attr('value', 'false');
+                $('#bonceBackLimit').attr("disabled", "disabled")
+                $('#bounce1').attr("disabled", "disabled")
+                $('#bounce2').attr("disabled", "disabled")
+                $('#bounce3').attr("disabled", "disabled")
+                $('#bounce4').attr("disabled", "disabled")
+
+            } else {
+                $('.gameMode').show()
+                $('#bonceBackLimit').removeAttr("formnovalidate")
+                $('#bounce1').removeAttr("formnovalidate")
+                $('#bounce2').removeAttr("formnovalidate")
+                $('#bounce3').removeAttr("formnovalidate")
+                $('#bounce4').removeAttr("formnovalidate")
+            }
+        })
+        let userId = $('#userId').val()
+        $.formUtils.addValidator({
+            name: 'validatedEmail',
+            validatorFunction: function (value, $el, config, language, $form) {
+                let validateEmail
+                $.ajax({
+                    type: 'POST',
+                    url: host + "/validateEmail",
+                    data: {
+                        email: value,
+                        distributorId: userId
+                    },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData == 'success') {
+                            validateEmail = false
+                        } else {
+                            validateEmail = true
+                        }
+                    }
+                });
+                return validateEmail
+            },
+            errorMessage: 'This email has been already taken!',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'validatedUserName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log("validate");
+                let validateUserName
+                $.ajax({
+                    type: 'POST',
+                    url: host + "/validateUserName",
+                    data: { username: value,
+                        distributorId: userId
+                    },
+                    async: false,
+                    success: function (resultData) {
+                        console.log(resultData);
+                        if (resultData == 'success') {
+                            validateUserName = false
+                        } else {
+                            validateUserName = true
+                        }
+                    }
+                });
+                return validateUserName
+            },
+            errorMessage: 'This Username has been already taken!',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'selectValidator',
+            validatorFunction: function (value, $el, config, language, $form) {
+                // Custom validation logic
+                return value !== '';
+            },
+            errorMessage: 'Please select an option',
+            errorMessageKey: 'badSelectValue'
+        });
+        $.validate({
+            form: '#addUser',
+            modules: 'security',
+            language: 'en',
+            onModulesLoaded: function () {
+                // Enable custom validator for the dropdown
+                $('#dropdown').displayOptions();
+                $.validate.validators.selectValidator = {
+                    validator: function (value, $el, config, language, $form) {
+                        return $.formUtils.validators.validate_select($el, config, language, $form);
+                    },
+                    errorMessage: 'Please select an option',
+                    errorMessageKey: 'badSelectValue'
+                };
+            }
+        });
+        
+        $.formUtils.addValidator({
+            name: 'requiredUsername',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter username',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredName',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter name',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredCity',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter city',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredPassword',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter password',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredPercentage',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return value.length != 0
+            },
+            errorMessage: 'Please enter precentage',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredEmail',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter email',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredNumber',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return value.length != 0
+            },
+            errorMessage: 'Please enter mobile number',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'vlidateMobileNumber',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return Number(value.length) == 10
+            },
+            errorMessage: 'Please enter valid mobile number',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredPassword',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return Number(value.length) != 0
+            },
+            errorMessage: 'Please enter password',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredImage',
+            validatorFunction: function (value, $el, config, language, $form) {
+                console.log(value.length);
+                return Number(value.length) != 0
+            },
+            errorMessage: 'Please select image',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'requiredMin',
+            validatorFunction: function (value, $el, config, language, $form) {
+
+                return Number(value) >= Number(minimum);
+            },
+            errorMessage: 'Minimum value more than or equale to<b> ' + minimum + ' </b>required',
+            errorMessageKey: 'badRackCap'
+        });
+        $.formUtils.addValidator({
+            name: 'maximum',
+            validatorFunction: function (value, $el, config, language, $form) {
+                return Number(value) <= Number(maximum);
+            },
+            errorMessage: 'Maximum value less than or equale to<b> ' + maximum + ' </b>required.',
+            errorMessageKey: 'badRackCap'
+        });
+    });
+</script>
+{% endblock %}

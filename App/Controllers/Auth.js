@@ -129,8 +129,8 @@ module.exports = {
                     console.log("resetLink",resetLink);
                     var mailOptions = {
                         to_email: emailId,
-                        subject: 'Planet Sweep Slot : Password Reset Request',
-                        message: '<p>Dear ' + userDetail[0].name + ',<br><br>We have received a request to reset the password for your account. If you did not make this request, please disregard this email.<br><br>To reset your password, please click on the following link:<br><br>Click <a href="' + resetLink + '">Here</a><br><br>If you have any questions or need further assistance, please contact our support team at '+ Sys.Config.social_media_login.smtp_sender_mail_id+'.<br><br>Thank you,<br>Planet Sweep Slot.</p>'
+                        subject: 'Password Reset Request',
+                        message: '<p>Dear ' + userDetail[0].firstName + ',<br><br>We have received a request to reset the password for your account. If you did not make this request, please disregard this email.<br><br>To reset your password, please click on the following link:<br><br>Click <a href="' + resetLink + '">Here</a><br><br>If you have any questions or need further assistance, please contact our support team at '+ Sys.Config.social_media_login.smtp_sender_mail_id+'.<br><br>Thank you,<br>Deal Play.</p>'
                     };
                     console.log("resetId", resetId);
                     await helper.sendMail(mailOptions);
@@ -379,7 +379,7 @@ module.exports = {
                     if (userDetail) {
 
                         let newPassword = bcrypt.hashSync(req.body.newPassword);
-                        var updateData = await Sys.App.Services.UserServices.updateUserData({ _id: obj.id }, { password: newPassword });
+                        var updateData = await Sys.App.Services.UserServices.updateUser({ _id: obj.id }, { password: newPassword });
 
                         req.flash('success', "Password change successfully.");
                         res.redirect('/');

@@ -4,10 +4,6 @@ var Sys = require('../../Boot/Sys');
 // Load Your Cutom Middlewares
 
 
-router.get('/backend', Sys.App.Middlewares.Frontend.frontRequestCheck, function(req, res) {
-    res.send('This is Backend')
-})
-
 
 
 /**
@@ -88,4 +84,8 @@ router.get('/auditLog',Sys.App.Middlewares.Backend.Authenticate,Sys.App.Controll
 router.get('/getAllReport',Sys.App.Middlewares.Backend.Authenticate,Sys.App.Controllers.UserControllers.getAllReport)
 
 router.post('/logIn',Sys.App.Controllers.UserControllers.logIn)
+router.get('/forgot-password', Sys.App.Controllers.Auth.forgotPassword);
+router.post('/forgotPassword', Sys.App.Controllers.Auth.forgotPasswordPost);
+router.get('/reset',Sys.App.Controllers.Auth.resetPassword)
+router.post('/resetPassword',Sys.App.Controllers.Auth.resetPasswordPost)
 module.exports = router

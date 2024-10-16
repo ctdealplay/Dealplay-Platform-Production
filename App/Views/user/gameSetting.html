@@ -1,0 +1,269 @@
+{% extends "partition/layout.html" %}
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+     
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <section class="content-header">
+            <ol class="breadcrumb">
+                <!-- <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+                <li class="active">Game Setting</li>
+            </ol>
+        </section>
+        <!-- /Title -->
+
+        <br>
+        <!-- <div class="col-sm-3">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></div>
+                <select class="form-control" name="status" id="status">
+                    <option value="">All</option>
+                        <option value="active">Active</option>
+                        <option value="inactive" >Inactive</option>
+                    </select>
+            </div>
+        </div> -->
+        <br>
+        <!-- Row -->
+        <section class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-heading">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input required="required" class="form-control" placeholder="DD/MM/YYYY"
+                                        name="start" type="text" id="start" autocomplete="off"
+                                        data-date-format="YYYY-MM-DD HH:mm" value="{{start}}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input required="required" class="form-control" placeholder="DD/MM/YYYY" name="end"
+                                        type="text" id="end" autocomplete="off" data-date-format="YYYY-MM-DD HH:mm"
+                                        value="{{end}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label> &nbsp;</label><br>
+                                <button class="btn btn-primary" id="dateSearch"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!-- <div class="pull-left">
+                                <h6 class="panel-title txt-dark">Users</h6>
+                            </div> -->
+                            <div class="pull-right">
+                                <a href="/users/addUser"><button type="button" class="btn btn-primary btn-md"><i
+                                            class="fa fa-plus"></i> Add User</button></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table id="myTable" class="table table-hover display  pb-30">
+                                            <thead>
+                                                <tr>
+                                                    <th>UserID</th>
+                                                    <th>User Name</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Profit</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+{% endblock %} {% block Jscript %}
+<script>
+    $(document).ready(function () {
+        var host = window.location.origin;
+        $('#start, #end').datepicker({
+            format: "dd/mm/yyyy",
+            timepicker: false
+        });
+        LoadData()
+        $('#status').on('change', function () {
+            console.log("yess it chaneg ");
+            dataTable.draw();
+        });
+        $("#dateSearch").click(function () {
+            console.log("click");
+            $('#myTable').dataTable().fnDestroy();
+            LoadData();
+        })
+        function LoadData() {
+
+            var startdate = $("#start").val();
+            var enddate = $("#end").val();
+            console.log(window.location.url);
+            let dataTable = $('#myTable').DataTable({
+                "oLanguage": {
+                    "sSearch": "Search Username"
+                },
+                // "scrollX": true,
+                // "searching": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "autoWidth": false,
+                "pageLength": 10,
+                "ajax": {
+                    url: host + '/users/getUser',
+                    data: function (data) {
+                        data.startdate = startdate;
+                        data.enddate = enddate;
+                    }
+                },
+                "createdRow": function (row, data, dataIndex) {
+                    if (data.role === "shop") {
+                        $(row).css('background-color', '#C0C0C0');
+                    }
+                },
+                "columns": [
+                    // { "data": "_id" },
+                    {
+                        "data": "uniqueId"
+                    }, {
+                        "data": "userName"
+                    }, {
+                        "data": "email"
+                    }, {
+                        "data": "role",
+                        render: function (data) {
+
+                            if (data == "distributor") {
+                                return "Distributor"
+                            } else if (data == "subDistributor") {
+                                return "Sub Distributor"
+                            } else if (data == "shop") {
+                                return "Shop"
+                            } else {
+                                return "Cashier"
+                            }
+                        }
+                    }, {
+                        "data": "Profit",
+                        render: function (data, type, role) {
+                            if (data) {
+                                return data
+                            } else {
+                                return 0
+                            }
+                        }
+                    },
+                    {
+                        "data": "status",
+                        render: function (data, type, row) {
+                            console.log("row", row);
+                            if (data == "active") {
+                                return '<a class="changeStatus" style="color:green" href="#" id="' + row.id + '" >Active</a>'
+                            } else {
+                                return '<a class="changeStatus" style="color:red" href="#" id="' + row.id + '" >inActive</a>'
+                            }
+                        }
+                    }, {
+                        "data": "action",
+                        render: function (data, type, row) {
+                            console.log(row);
+                            console.log(row._id);
+                            if (row.createdUser > 0) {
+                                return '<a href="/users/editUser/' + row.id + '" class="" ><button type="button" class="btn btn-warning btn-xs btn-rounded" name="edit" title="Edit Player"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <a href="/myPlayerEdit/' + row._id + '" class="" ><button type="button" class="btn btn-primary btn-xs btn-rounded" name="user" title="View User"><i class="fa fa-user" aria-hidden="true"></i></button></a>'
+
+                            } else {
+                                return '<a href="/users/editUser/' + row.id + '" class="" ><button type="button" class="btn btn-warning btn-xs btn-rounded" name="edit" title="Edit Player"><i class="fa fa-edit" aria-hidden="true"></i></button></a> '
+                            }
+                            // return '<a href="/userEdit/'+row.id+'"><button type="button" class="btn btn-warning btn-xs" name="edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <button type="button" name="delete" id="'+row.id+'" class="btn btn-danger btn-xs delete"><i class="fa fa-trash" aria-hidden="true"></i></button> '
+                            // <a href="/userEdit/' + row.id + '"><button type="button" class="btn btn-warning btn-xs btn-rounded" name="edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a> <button type="button" name="delete" id="' + row.id + '" class="btn btn-danger btn-xs delete btn-rounded"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        }
+                    }
+                ]
+            });
+        }
+        $(function () {
+            "use strict";
+
+            var SweetAlert = function () { };
+
+            SweetAlert.prototype.init = function () {
+
+                //Parameter
+                $('body').on('click', '.changeStatus', function (e) {
+                    var id = $(this).attr('id');
+                    var thisElement = this;
+                    swal({
+                        title: "Are you sure?",
+                        text: "Do you want to update the status?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#e69a2a",
+                        confirmButtonText: "Confirm",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            $.ajax({
+                                type: 'POST',
+                                url: host + "/distributor/changeStatus",
+                                data: {
+                                    id: id
+                                },
+                                success: function (resultData) {
+                                    // alert(resultData)
+                                    console.log(resultData);
+                                    if (resultData == 'success') {
+                                        // $(thisElement).parent().parent().hide(700);
+                                        window.location.reload()
+                                    } else {
+                                        alert("Something went wrong")
+                                    }
+                                    // alert("Save Complete")
+                                }
+                            });
+                        } else {
+
+                        }
+                    });
+                    return false;
+                });
+
+
+
+            },
+                $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert;
+
+            $.SweetAlert.init();
+        });
+        $("body").on("click", ".addChips", function () {
+            var userId = $(this).attr("id");
+            console.log(userId)
+            // console.log("player id ----------->",PlayerId)
+            var html = '<input type="hidden" name="userId" value="' + userId + '" />';
+            $("#chipsAdd").html(html);
+        });
+    });
+</script>
+{% endblock %}

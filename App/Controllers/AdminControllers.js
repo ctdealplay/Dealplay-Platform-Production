@@ -265,7 +265,8 @@ module.exports = {
         buildUrl:module.buildUrl,
         learnerId:req.body.learner,
         tag:module.tag,
-        userId:module.userId
+        userId:module.userId,
+	SceneName:module.SceneName
       })
 
       await Sys.App.Services.ModuleServices.updateModule({_id:mongoose.Types.ObjectId(req.body.moduleTitle)},{$inc:{totalMaxSession:-Number(req.body.maxSession),remainingMaxSession:(module.totalMaxSession - Number(req.body.maxSession))}})

@@ -87,10 +87,10 @@ Sys.Server = require('http').Server(Sys.App);
 
 
 
-// var https_options = {
-//   key: fs.readFileSync('public/SSL/dsn.key'),
-//   cert: fs.readFileSync('public/SSL/dsn.pem')
-// };
+var https_options = {
+   key: fs.readFileSync('public/SSL/cert.pem'),
+   cert: fs.readFileSync('public/SSL/fullchain.pem')
+};
 
 
 // var https_options = {
@@ -109,7 +109,7 @@ Sys.Server = require('http').Server(Sys.App);
 // };
 
 
-// Sys.Server = require('http').Server(https_options, Sys.App);
+//Sys.Server = require('http').Server(https_options, Sys.App);
 
 
 
@@ -370,9 +370,15 @@ console.log("connected");
    	// });
 
 // Slot game connections
-	
+	Sys.Io.of(Sys.Config.Namespace.Slot).on('connection', function(socket){
+		console.log('User Connected To Slot');
+		Object.keys(Sys.Game.Slot.Sockets).forEach(function(key){
+		   Sys.Game.Slot.Sockets[key](socket)
+	   })
+   	});
 
-	Sys.Server.listen(Sys.Config.Socket.port,function() {
+
+	Sys.Server.listen(Sys.Config.Socket.port,'0.0.0.0',function() {
 		Sys.App.use(function(req, res, next) {
 			res.render('404.html');
 		});
